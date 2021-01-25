@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">CepHesabim</string>
+    <string name="income_outcome">Gelen Giden</string>
+    <string name="monthly_result">Aylık Sonuç</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
