@@ -12,6 +12,7 @@
     app:cardCornerRadius="10dp">
 
     <LinearLayout
+        android:id="@+id/listItemContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -28,8 +29,7 @@
             android:gravity="center"
             android:textSize="16sp"
             android:textAllCaps="false"
-            android:textColor="@color/colorAccent"
-            android:onClick="loginButtonOnClick" />
+            android:textColor="@color/white" />
 
 
     </LinearLayout>

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fethicectin.cephesabi.CepHesabiModel
@@ -15,7 +16,7 @@ import com.fethicectin.orderly.Utils.QuestionRecyclerAdapter
 import kotlinx.android.synthetic.main.fragment_income_outcome.*
 
 class IncomeOutcomeFragment : Fragment() {
-    val db by lazy { DatabaseHelper(context!!)  }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,39 +27,69 @@ class IncomeOutcomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        var addButton = view?.findViewById<Button>(R.id.addToPocket)
-        var subButton = view?.findViewById<Button>(R.id.subFromPocket)
-        var amountInput = view?.findViewById<EditText>(R.id.amountInput)
-
+        val db = DatabaseHelper(context!!)
+        val addButton = view?.findViewById<Button>(R.id.addToPocket)
+        val subButton = view?.findViewById<Button>(R.id.subFromPocket)
+        val amountInput = view?.findViewById<EditText>(R.id.amountInput)
+        val descriptionInput = view?.findViewById<EditText>(R.id.descriptionInput)
+        val sumTextView = view?.findViewById<TextView>(R.id.sum)
+        var sum = 0
+        var sumText = ""
         addButton?.setOnClickListener {
-           var model = CepHesabiModel()
+           val model = CepHesabiModel()
            model.amount = amountInput?.text.toString().toInt()
            model.addorsub = 1
-           var rowId = db.insertData(model)
+           model.description = descriptionInput?.text.toString()
+           val rowId = db.insertData(model)
            if(rowId > -1){
                Toast.makeText(context!!,"Kayıt id : $rowId",Toast.LENGTH_SHORT).show()
            }else{
                Toast.makeText(context!!,"Hata!",Toast.LENGTH_SHORT).show()
            }
            amountInput?.text = null
+           descriptionInput?.text = null
+           val modelList = db.retrieveData()
+           transactionRecyclerView.layoutManager = LinearLayoutManager(context)
+           transactionRecyclerView.adapter = QuestionRecyclerAdapter(modelList)
+
+            for(listElement in modelList){
+                if(listElement.addorsub == 1){
+                    sum += listElement.amount!!
+                }else if(listElement.addorsub == 0){
+                    sum -= listElement.amount!!
+                }
+            }
+           sumText = sum.toString() + " TL"
+           sumTextView!!.text = sumText
         }
 
         subButton?.setOnClickListener {
-           var model = CepHesabiModel()
+           val model = CepHesabiModel()
            model.amount = amountInput?.text.toString().toInt()
            model.addorsub = 0
-           var rowId = db.insertData(model)
+           model.description = descriptionInput?.text.toString()
+           val rowId = db.insertData(model)
            if(rowId > -1){
                Toast.makeText(context!!,"Kayıt id : $rowId",Toast.LENGTH_SHORT).show()
            }else{
                Toast.makeText(context!!,"Hata!",Toast.LENGTH_SHORT).show()
            }
            amountInput?.text = null
+           descriptionInput?.text = null
+           val modelList = db.retrieveData()
+           transactionRecyclerView.layoutManager = LinearLayoutManager(context)
+           transactionRecyclerView.adapter = QuestionRecyclerAdapter(modelList)
 
+           for(listElement in modelList){
+               if(listElement.addorsub == 1){
+                   sum += listElement.amount!!
+               }else if(listElement.addorsub == 0){
+                   sum -= listElement.amount!!
+               }
+           }
+           sumText = sum.toString() + " TL"
+           sumTextView!!.text = sumText
         }
-        var modelList = db.retrieveData()
-        Log.d("***LİSTEDDATAPRINT***",modelList.get(0).toString())
-        transactionRecyclerView.layoutManager = LinearLayoutManager(context)
-        transactionRecyclerView.adapter = QuestionRecyclerAdapter(modelList)
+
     }
 }

@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import android.widget.Toast
 import com.fethicectin.cephesabi.CepHesabiModel
 
@@ -21,7 +22,7 @@ class DatabaseHelper(val context: Context) : SQLiteOpenHelper(context,DatabaseHe
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
-        val createTable = "CREATE TABLE $TABLE_NAME ($COL_ID PRIMARY KEY, $COL_AMOUNT INTEGER, $COL_MOUNTH TEXT, $COL_DESCRIPTION TEXT, $COL_ADDORSUB INTEGER)"
+        val createTable = "CREATE TABLE $TABLE_NAME ($COL_ID INTEGER PRIMARY KEY AUTOINCREMENT, $COL_AMOUNT INTEGER, $COL_MOUNTH TEXT, $COL_DESCRIPTION TEXT, $COL_ADDORSUB INTEGER)"
         db?.execSQL(createTable)
     }
 
@@ -49,15 +50,19 @@ class DatabaseHelper(val context: Context) : SQLiteOpenHelper(context,DatabaseHe
         val sqliteDB = this.readableDatabase
         val query =  "SELECT * FROM $TABLE_NAME"
         val result = sqliteDB.rawQuery(query,null)
-        if(result.moveToFirst()){
-            do {
-                val model = CepHesabiModel()
-                model.id = result.getString(result.getColumnIndex(COL_ID)).toInt()
-                model.amount = result.getColumnIndex(COL_AMOUNT)
-                model.mounth = result.getString(result.getColumnIndex(COL_MOUNTH))
-                model.description = result.getString(result.getColumnIndex(COL_DESCRIPTION))
-                modelList.add(model)
-            }while (result.moveToNext())
+        Log.d("***SELECT***",result.toString())
+        if(result != null){
+           if(result.moveToFirst()){
+               do{
+                   val model = CepHesabiModel()
+                   model.id = result.getInt(result.getColumnIndex(COL_ID))
+                   model.amount = result.getInt(result.getColumnIndex(COL_AMOUNT))
+                   model.mounth = result.getString(result.getColumnIndex(COL_MOUNTH))
+                   model.description = result.getString(result.getColumnIndex(COL_DESCRIPTION))
+                   model.addorsub = result.getInt(result.getColumnIndex(COL_ADDORSUB))
+                   modelList.add(model)
+               }while (result.moveToNext())
+           }
         }
         result.close()
         sqliteDB.close()
@@ -68,7 +73,6 @@ class DatabaseHelper(val context: Context) : SQLiteOpenHelper(context,DatabaseHe
         val sqliteDB = this.writableDatabase
         sqliteDB.delete(TABLE_NAME,null,null)
         sqliteDB.close()
-
     }
 
 }

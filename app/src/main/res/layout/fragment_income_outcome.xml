@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="start"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:paddingTop="39dp"
     tools:context=".IncomeOutcomeFragment">
 
@@ -21,19 +21,44 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:text="+" />
-        <EditText
-            android:id="@+id/amountInput"
-            android:layout_width="210dp"
+            android:text="+"
+            android:textSize="29sp"
+            android:background="@color/colorAccent"
+            android:textColor="@color/white"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="hesaba yansıyacak tutar"/>
+            android:orientation="vertical">
+            <EditText
+                android:id="@+id/amountInput"
+                android:layout_width="210dp"
+                android:inputType="number"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:hint="hesaba yansıyacak tutar"/>
+            <EditText
+                android:id="@+id/descriptionInput"
+                android:layout_width="210dp"
+                android:inputType="textMultiLine"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:hint="açıklama"/>
+
+        </LinearLayout>
+
         <Button
             android:id="@+id/subFromPocket"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:text="-"/>
+            android:text="-"
+            android:textSize="29sp"
+            android:background="@color/pink"
+            android:textColor="@color/white"/>
+
 
 
     </LinearLayout>
@@ -41,9 +66,28 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/transactionRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="5dp"
-        tools:itemCount="17"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="55dp"
+        android:layout_marginEnd="55dp"
         tools:listitem="@layout/layout_transaction_item"/>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+
+        <TextView
+            android:id="@+id/sum"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:textColor="@color/white"
+            android:background="@color/colorPrimary"
+            android:textSize="19sp"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:layout_alignParentBottom="true"
+            />
+
+
 
 </LinearLayout>

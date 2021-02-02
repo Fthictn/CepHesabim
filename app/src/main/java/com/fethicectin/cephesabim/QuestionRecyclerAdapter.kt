@@ -1,8 +1,10 @@
 package com.fethicectin.orderly.Utils
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +16,7 @@ class QuestionRecyclerAdapter(private var models:List<CepHesabiModel>?): Recycle
     inner class ViewHolder(itemView:View): RecyclerView.ViewHolder(itemView){
 
         val listItem = itemView.findViewById<TextView>(R.id.listItem)
-
+        val listItemContainer = itemView.findViewById<LinearLayout>(R.id.listItemContainer)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,7 +29,13 @@ class QuestionRecyclerAdapter(private var models:List<CepHesabiModel>?): Recycle
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.listItem.text = models!!.get(position).amount.toString()
+            val itemString = models!!.get(position).amount.toString() + " TL" + " (" + models!!.get(position).description + ")"
+            holder.listItem.text = itemString
+            if(models!!.get(position).addorsub == 1){
+                holder.listItemContainer.setBackgroundColor(Color.parseColor("#03DAC5"))
+            }else{
+                holder.listItemContainer.setBackgroundColor(Color.parseColor("#E41456"))
+            }
     }
 
 
