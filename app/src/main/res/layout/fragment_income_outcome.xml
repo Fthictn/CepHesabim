@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:hint="hesaba yansıyacak tutar"/>
+                android:hint="tutar"/>
             <EditText
                 android:id="@+id/descriptionInput"
                 android:layout_width="210dp"

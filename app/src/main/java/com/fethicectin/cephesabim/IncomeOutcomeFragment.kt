@@ -33,62 +33,34 @@ class IncomeOutcomeFragment : Fragment() {
         val amountInput = view?.findViewById<EditText>(R.id.amountInput)
         val descriptionInput = view?.findViewById<EditText>(R.id.descriptionInput)
         val sumTextView = view?.findViewById<TextView>(R.id.sum)
-        var sum = 0
-        var sumText = ""
+
         addButton?.setOnClickListener {
+           //db.deleteAllData()
            val model = CepHesabiModel()
            model.amount = amountInput?.text.toString().toInt()
-           model.addorsub = 1
            model.description = descriptionInput?.text.toString()
            val rowId = db.insertData(model)
-           if(rowId > -1){
-               Toast.makeText(context!!,"Kayıt id : $rowId",Toast.LENGTH_SHORT).show()
-           }else{
-               Toast.makeText(context!!,"Hata!",Toast.LENGTH_SHORT).show()
-           }
            amountInput?.text = null
            descriptionInput?.text = null
            val modelList = db.retrieveData()
            transactionRecyclerView.layoutManager = LinearLayoutManager(context)
            transactionRecyclerView.adapter = QuestionRecyclerAdapter(modelList)
 
-            for(listElement in modelList){
-                if(listElement.addorsub == 1){
-                    sum += listElement.amount!!
-                }else if(listElement.addorsub == 0){
-                    sum -= listElement.amount!!
-                }
-            }
-           sumText = sum.toString() + " TL"
-           sumTextView!!.text = sumText
+           sumTextView!!.text = db.sumOfAmounts().toString()
         }
 
         subButton?.setOnClickListener {
            val model = CepHesabiModel()
-           model.amount = amountInput?.text.toString().toInt()
-           model.addorsub = 0
+           model.amount = amountInput?.text.toString().toInt().unaryMinus()
            model.description = descriptionInput?.text.toString()
            val rowId = db.insertData(model)
-           if(rowId > -1){
-               Toast.makeText(context!!,"Kayıt id : $rowId",Toast.LENGTH_SHORT).show()
-           }else{
-               Toast.makeText(context!!,"Hata!",Toast.LENGTH_SHORT).show()
-           }
            amountInput?.text = null
            descriptionInput?.text = null
            val modelList = db.retrieveData()
            transactionRecyclerView.layoutManager = LinearLayoutManager(context)
            transactionRecyclerView.adapter = QuestionRecyclerAdapter(modelList)
 
-           for(listElement in modelList){
-               if(listElement.addorsub == 1){
-                   sum += listElement.amount!!
-               }else if(listElement.addorsub == 0){
-                   sum -= listElement.amount!!
-               }
-           }
-           sumText = sum.toString() + " TL"
-           sumTextView!!.text = sumText
+           sumTextView!!.text = db.sumOfAmounts().toString()
         }
 
     }

@@ -7,6 +7,7 @@ class CepHesabiModel {
     var mounth:String?
     var description:String?
     var addorsub:Int?
+    var sumofamounts:Int?
 
     companion object Factory {
         fun create(): CepHesabiModel = CepHesabiModel()
@@ -18,6 +19,7 @@ class CepHesabiModel {
         mounth = null
         description = null
         addorsub = null
+        sumofamounts = null
     }
 
 }

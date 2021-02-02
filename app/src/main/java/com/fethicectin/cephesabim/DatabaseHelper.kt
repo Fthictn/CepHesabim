@@ -14,7 +14,7 @@ class DatabaseHelper(val context: Context) : SQLiteOpenHelper(context,DatabaseHe
     private val COL_AMOUNT = "amount"
     private val COL_MOUNTH = "mounth"
     private val COL_DESCRIPTION = "description"
-    private val COL_ADDORSUB = "addorsub"
+    private val COL_TOTAL = "Total"
 
     companion object {
         private val DATABASE_NAME = "CEPHESABI"
@@ -22,7 +22,7 @@ class DatabaseHelper(val context: Context) : SQLiteOpenHelper(context,DatabaseHe
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
-        val createTable = "CREATE TABLE $TABLE_NAME ($COL_ID INTEGER PRIMARY KEY AUTOINCREMENT, $COL_AMOUNT INTEGER, $COL_MOUNTH TEXT, $COL_DESCRIPTION TEXT, $COL_ADDORSUB INTEGER)"
+        val createTable = "CREATE TABLE $TABLE_NAME ($COL_ID INTEGER PRIMARY KEY AUTOINCREMENT, $COL_AMOUNT INTEGER, $COL_MOUNTH TEXT, $COL_DESCRIPTION TEXT)"
         db?.execSQL(createTable)
     }
 
@@ -38,7 +38,6 @@ class DatabaseHelper(val context: Context) : SQLiteOpenHelper(context,DatabaseHe
         contentvalues.put(COL_AMOUNT,model.amount)
         contentvalues.put(COL_MOUNTH,model.mounth)
         contentvalues.put(COL_DESCRIPTION,model.description)
-        contentvalues.put(COL_ADDORSUB,model.addorsub)
 
         val result = sqliteDb.insert(TABLE_NAME,null,contentvalues)
 
@@ -59,7 +58,6 @@ class DatabaseHelper(val context: Context) : SQLiteOpenHelper(context,DatabaseHe
                    model.amount = result.getInt(result.getColumnIndex(COL_AMOUNT))
                    model.mounth = result.getString(result.getColumnIndex(COL_MOUNTH))
                    model.description = result.getString(result.getColumnIndex(COL_DESCRIPTION))
-                   model.addorsub = result.getInt(result.getColumnIndex(COL_ADDORSUB))
                    modelList.add(model)
                }while (result.moveToNext())
            }
@@ -67,6 +65,19 @@ class DatabaseHelper(val context: Context) : SQLiteOpenHelper(context,DatabaseHe
         result.close()
         sqliteDB.close()
         return modelList
+    }
+
+    fun sumOfAmounts():Int{
+        val sqliteDB = this.readableDatabase
+        val query =  "SELECT SUM($COL_AMOUNT) AS Total FROM $TABLE_NAME"
+        val result = sqliteDB.rawQuery(query,null)
+        var total = 0
+        if (result.moveToFirst()) {
+            total = result.getInt(result.getColumnIndex(COL_TOTAL))
+        }
+        result.close()
+        sqliteDB.close()
+        return total
     }
 
     fun deleteAllData(){

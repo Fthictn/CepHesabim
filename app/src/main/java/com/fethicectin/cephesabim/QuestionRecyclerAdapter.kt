@@ -31,7 +31,7 @@ class QuestionRecyclerAdapter(private var models:List<CepHesabiModel>?): Recycle
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val itemString = models!!.get(position).amount.toString() + " TL" + " (" + models!!.get(position).description + ")"
             holder.listItem.text = itemString
-            if(models!!.get(position).addorsub == 1){
+            if(models!!.get(position).amount!! > 0.0){
                 holder.listItemContainer.setBackgroundColor(Color.parseColor("#03DAC5"))
             }else{
                 holder.listItemContainer.setBackgroundColor(Color.parseColor("#E41456"))
