@@ -1,4 +1,4 @@
-package com.fethicectin.cephesabim
+package com.fethicectin.cephesabim.DbHelper
 
 import android.content.ContentValues
 import android.content.Context
@@ -51,16 +51,16 @@ class DatabaseHelper(val context: Context) : SQLiteOpenHelper(context,DatabaseHe
         val result = sqliteDB.rawQuery(query,null)
         Log.d("***SELECT***",result.toString())
         if(result != null){
-           if(result.moveToFirst()){
-               do{
-                   val model = CepHesabiModel()
-                   model.id = result.getInt(result.getColumnIndex(COL_ID))
-                   model.amount = result.getInt(result.getColumnIndex(COL_AMOUNT))
-                   model.mounth = result.getString(result.getColumnIndex(COL_MOUNTH))
-                   model.description = result.getString(result.getColumnIndex(COL_DESCRIPTION))
-                   modelList.add(model)
-               }while (result.moveToNext())
-           }
+            if(result.moveToFirst()){
+                do{
+                    val model = CepHesabiModel()
+                    model.id = result.getInt(result.getColumnIndex(COL_ID))
+                    model.amount = result.getInt(result.getColumnIndex(COL_AMOUNT))
+                    model.mounth = result.getString(result.getColumnIndex(COL_MOUNTH))
+                    model.description = result.getString(result.getColumnIndex(COL_DESCRIPTION))
+                    modelList.add(model)
+                }while (result.moveToNext())
+            }
         }
         result.close()
         sqliteDB.close()

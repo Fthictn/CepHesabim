@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.fethicectin.cephesabim.IncomeOutcomeFragment
-import com.fethicectin.cephesabim.MontlyResultFragment
+import com.fethicectin.cephesabim.Fragment.IncomeOutcomeFragment
+import com.fethicectin.cephesabim.Fragment.MontlyResultFragment
 
 class MainTabAdapter(private val context: Context, fragmentManager: FragmentManager, internal var totalTabs: Int) : FragmentPagerAdapter(fragmentManager) {
 

@@ -6,7 +6,7 @@
     android:gravity="start"
     android:orientation="vertical"
     android:paddingTop="39dp"
-    tools:context=".IncomeOutcomeFragment">
+    tools:context=".Fragment.IncomeOutcomeFragment">
 
     <LinearLayout
         android:id="@+id/innerContainerLayout"

@@ -1,10 +1,11 @@
-package com.fethicectin.cephesabim
+package com.fethicectin.cephesabim.Fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.fethicectin.cephesabim.R
 
 class MontlyResultFragment : Fragment() {
 

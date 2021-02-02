@@ -1,8 +1,9 @@
-package com.fethicectin.cephesabim
+package com.fethicectin.cephesabim.Activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.viewpager.widget.ViewPager
+import com.fethicectin.cephesabim.R
 import com.fethicectin.orderly.Utils.MainTabAdapter
 import com.google.android.material.tabs.TabLayout
 
