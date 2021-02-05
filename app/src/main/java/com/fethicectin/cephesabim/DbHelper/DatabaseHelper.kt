@@ -5,7 +5,6 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
-import android.widget.Toast
 import com.fethicectin.cephesabi.CepHesabiModel
 
 class DatabaseHelper(val context: Context) : SQLiteOpenHelper(context,DatabaseHelper.DATABASE_NAME,null,DatabaseHelper.DATABASE_VERSION) {
@@ -80,10 +79,15 @@ class DatabaseHelper(val context: Context) : SQLiteOpenHelper(context,DatabaseHe
         return total
     }
 
-    fun deleteAllData(){
+    fun deleteAllData(id: Int?) {
         val sqliteDB = this.writableDatabase
         sqliteDB.delete(TABLE_NAME,null,null)
         sqliteDB.close()
+    }
+
+    fun deleteData(id : Int) : Int {
+        val db = this.writableDatabase
+        return db.delete(TABLE_NAME,"id = ?", arrayOf(id.toString()))
     }
 
 }

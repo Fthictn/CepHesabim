@@ -1,22 +1,23 @@
 package com.fethicectin.orderly.Utils
 
+import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.fethicectin.cephesabi.CepHesabiModel
+import com.fethicectin.cephesabim.DbHelper.DatabaseHelper
 import com.fethicectin.cephesabim.R
 
-class QuestionRecyclerAdapter(private var models:List<CepHesabiModel>?): RecyclerView.Adapter<QuestionRecyclerAdapter.ViewHolder>() {
+class QuestionRecyclerAdapter(private var models:MutableList<CepHesabiModel>?, private val context: Context?): RecyclerView.Adapter<QuestionRecyclerAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView:View): RecyclerView.ViewHolder(itemView){
 
         val listItem = itemView.findViewById<TextView>(R.id.listItem)
-        val listItemContainer = itemView.findViewById<LinearLayout>(R.id.listItemContainer)
+        val listItemContainer = itemView.findViewById<RelativeLayout>(R.id.listItemContainer)
+        val deleteButton = itemView.findViewById<Button>(R.id.deleteButton)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,15 +30,28 @@ class QuestionRecyclerAdapter(private var models:List<CepHesabiModel>?): Recycle
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            val itemString = models!!.get(position).amount.toString() + " TL" + " (" + models!!.get(position).description + ")"
-            holder.listItem.text = itemString
-            if(models!!.get(position).amount!! > 0.0){
-                holder.listItemContainer.setBackgroundColor(Color.parseColor("#03DAC5"))
-            }else{
-                holder.listItemContainer.setBackgroundColor(Color.parseColor("#E41456"))
-            }
+        val db = DatabaseHelper(context!!)
+        val itemString = models!!.get(position).amount.toString() + " TL" + " (" + models!!.get(position).description + ")"
+        holder.listItem.text = itemString
+        if(models!!.get(position).amount!! > 0.0){
+            holder.listItemContainer.setBackgroundColor(Color.parseColor("#03DAC5"))
+        }else{
+            holder.listItemContainer.setBackgroundColor(Color.parseColor("#E41456"))
+        }
+
+        holder.deleteButton.setOnClickListener {
+            db.deleteAllData(models!!.get(position).id)
+            models!!.removeAt(position)
+            notifyDataSetChanged()
+
+        }
+
     }
 
 
 }
+
+
+
+
 

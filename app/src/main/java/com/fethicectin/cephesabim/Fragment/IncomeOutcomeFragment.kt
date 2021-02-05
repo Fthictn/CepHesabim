@@ -44,7 +44,7 @@ class IncomeOutcomeFragment : Fragment() {
            descriptionInput?.text = null
            val modelList = db.retrieveData()
            transactionRecyclerView.layoutManager = LinearLayoutManager(context)
-           transactionRecyclerView.adapter = QuestionRecyclerAdapter(modelList)
+           transactionRecyclerView.adapter = QuestionRecyclerAdapter(modelList,context!!)
 
            sumTextView!!.text = db.sumOfAmounts().toString()
         }
@@ -58,7 +58,7 @@ class IncomeOutcomeFragment : Fragment() {
            descriptionInput?.text = null
            val modelList = db.retrieveData()
            transactionRecyclerView.layoutManager = LinearLayoutManager(context)
-           transactionRecyclerView.adapter = QuestionRecyclerAdapter(modelList)
+           transactionRecyclerView.adapter = QuestionRecyclerAdapter(modelList,context!!)
 
            sumTextView!!.text = db.sumOfAmounts().toString()
         }
