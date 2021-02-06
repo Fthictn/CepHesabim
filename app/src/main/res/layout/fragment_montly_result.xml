@@ -1,10 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".Fragment.MontlyResultFragment">
 
-</LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/averageRemaingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_margin="12dp"
+        app:backgroundTint="@color/colorPrimaryDark"
+        android:layout_above="@+id/averageOutComeButton"
+        android:visibility="gone"
+        app:fabCustomSize="60dp"
+        app:fabSize="auto"
+        android:layout_alignParentEnd="true" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/averageOutComeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_margin="12dp"
+        android:visibility="gone"
+        android:layout_above="@+id/averageInComeButton"
+        app:backgroundTint="@android:color/holo_red_dark"
+        app:fabCustomSize="60dp"
+        app:fabSize="auto"
+        android:layout_alignParentEnd="true" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/averageInComeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/containerFabButton"
+        android:layout_alignParentEnd="true"
+        android:visibility="gone"
+        android:layout_margin="12dp"
+        app:backgroundTint="@android:color/holo_green_light"
+        app:fabCustomSize="60dp"
+        app:fabSize="auto"
+        android:layout_alignParentRight="true" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/containerFabButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        app:backgroundTint="@color/colorAccent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        app:fabCustomSize="60dp"
+        app:fabSize="auto"
+        android:layout_alignParentRight="true" />
+</RelativeLayout>
+
+

@@ -15,6 +15,7 @@ import com.fethicectin.cephesabim.DbHelper.DatabaseHelper
 import com.fethicectin.cephesabim.R
 import com.fethicectin.orderly.Utils.QuestionRecyclerAdapter
 import kotlinx.android.synthetic.main.fragment_income_outcome.*
+import java.util.*
 
 class IncomeOutcomeFragment : Fragment() {
 
@@ -45,6 +46,7 @@ class IncomeOutcomeFragment : Fragment() {
                val model = CepHesabiModel()
                model.amount = amountInput.text.toString().toInt()
                model.description = descriptionInput.text.toString()
+               model.mounth = getStringMounth(Calendar.getInstance().get(Calendar.MONTH))
                val rowId = db.insertData(model)
                amountInput.text = null
                descriptionInput.text = null
@@ -64,6 +66,7 @@ class IncomeOutcomeFragment : Fragment() {
                 val model = CepHesabiModel()
                 model.amount = amountInput.text.toString().toInt().unaryMinus()
                 model.description = descriptionInput.text.toString()
+                model.mounth = getStringMounth(Calendar.getInstance().get(Calendar.MONTH))
                 val rowId = db.insertData(model)
                 amountInput.text = null
                 descriptionInput.text = null
@@ -85,5 +88,10 @@ class IncomeOutcomeFragment : Fragment() {
             transactionRecyclerView.adapter = QuestionRecyclerAdapter(modelList, context!!)
         }
 
+    }
+
+    fun getStringMounth(mounthNo:Int?):String{
+        val mounthArray = arrayListOf("Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık")
+        return mounthArray[mounthNo!!]
     }
 }
