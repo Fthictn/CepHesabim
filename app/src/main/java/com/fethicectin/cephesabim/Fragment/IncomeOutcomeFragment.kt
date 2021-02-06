@@ -36,7 +36,7 @@ class IncomeOutcomeFragment : Fragment() {
         val sumTextView = view?.findViewById<TextView>(R.id.sum)
         val deleteAllButton = view?.findViewById<Button>(R.id.deleteAllButton)
 
-        val modelList = db.retrieveData()
+        var modelList = db.retrieveData()
         transactionRecyclerView.layoutManager = LinearLayoutManager(context)
         transactionRecyclerView.adapter = QuestionRecyclerAdapter(modelList,context!!)
 
@@ -48,7 +48,7 @@ class IncomeOutcomeFragment : Fragment() {
                val rowId = db.insertData(model)
                amountInput.text = null
                descriptionInput.text = null
-               val modelList = db.retrieveData()
+               modelList = db.retrieveData()
                transactionRecyclerView.layoutManager = LinearLayoutManager(context)
                transactionRecyclerView.adapter = QuestionRecyclerAdapter(modelList,context!!)
 
@@ -67,7 +67,7 @@ class IncomeOutcomeFragment : Fragment() {
                 val rowId = db.insertData(model)
                 amountInput.text = null
                 descriptionInput.text = null
-                val modelList = db.retrieveData()
+                modelList = db.retrieveData()
                 transactionRecyclerView.layoutManager = LinearLayoutManager(context)
                 transactionRecyclerView.adapter = QuestionRecyclerAdapter(modelList, context!!)
 
@@ -80,7 +80,7 @@ class IncomeOutcomeFragment : Fragment() {
         deleteAllButton?.setOnClickListener {
             db.deleteAllData()
             sumTextView!!.text = null
-            val modelList = db.retrieveData()
+            modelList = db.retrieveData()
             transactionRecyclerView.layoutManager = LinearLayoutManager(context)
             transactionRecyclerView.adapter = QuestionRecyclerAdapter(modelList, context!!)
         }
