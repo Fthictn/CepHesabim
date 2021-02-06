@@ -79,6 +79,24 @@ class DatabaseHelper(val context: Context) : SQLiteOpenHelper(context,DatabaseHe
         return total
     }
 
+    fun getMounthlyAverages(): ArrayList<Float> {
+        val db = this.readableDatabase
+        val mounthArray = arrayOf("Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık")
+        val mounthlyTotalAmount = arrayListOf<Float>()
+        for (i in 11 downTo  0) {
+            val mounth = mounthArray.get(i)
+            val query =  "SELECT SUM($COL_AMOUNT) AS Total FROM $TABLE_NAME WHERE $COL_MOUNTH = ?"
+            val cursor = db.rawQuery(query, mounthArray)
+            if (cursor.moveToFirst()) {
+                val total = cursor.getInt(cursor.getColumnIndex(COL_TOTAL))
+                mounthlyTotalAmount.add(total.toFloat())
+            }
+        }
+
+        db.close()
+        return mounthlyTotalAmount
+    }
+
     fun deleteAllData() {
         val sqliteDB = this.writableDatabase
         sqliteDB.delete(TABLE_NAME,null,null)

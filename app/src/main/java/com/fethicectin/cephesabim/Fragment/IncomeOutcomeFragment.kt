@@ -40,6 +40,7 @@ class IncomeOutcomeFragment : Fragment() {
         var modelList = db.retrieveData()
         transactionRecyclerView.layoutManager = LinearLayoutManager(context)
         transactionRecyclerView.adapter = QuestionRecyclerAdapter(modelList,context!!)
+        sumTextView!!.text = db.sumOfAmounts().toString()
 
         addButton?.setOnClickListener {
             if(amountInput!!.text != null && amountInput.text.toString() != "" && descriptionInput!!.text != null && descriptionInput.text.toString() != "") {
