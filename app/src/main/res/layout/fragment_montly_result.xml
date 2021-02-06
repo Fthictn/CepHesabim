@@ -57,6 +57,11 @@
         app:fabCustomSize="60dp"
         app:fabSize="auto"
         android:layout_alignParentRight="true" />
+
+    <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
+        android:id="@+id/aa_chart_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </RelativeLayout>
 
 
