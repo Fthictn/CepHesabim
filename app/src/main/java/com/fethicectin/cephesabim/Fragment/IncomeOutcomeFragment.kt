@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fethicectin.cephesabi.CepHesabiModel
 import com.fethicectin.cephesabim.DbHelper.DatabaseHelper
@@ -33,34 +34,55 @@ class IncomeOutcomeFragment : Fragment() {
         val amountInput = view?.findViewById<EditText>(R.id.amountInput)
         val descriptionInput = view?.findViewById<EditText>(R.id.descriptionInput)
         val sumTextView = view?.findViewById<TextView>(R.id.sum)
+        val deleteAllButton = view?.findViewById<Button>(R.id.deleteAllButton)
+
+        val modelList = db.retrieveData()
+        transactionRecyclerView.layoutManager = LinearLayoutManager(context)
+        transactionRecyclerView.adapter = QuestionRecyclerAdapter(modelList,context!!)
 
         addButton?.setOnClickListener {
-           //db.deleteAllData()
-           val model = CepHesabiModel()
-           model.amount = amountInput?.text.toString().toInt()
-           model.description = descriptionInput?.text.toString()
-           val rowId = db.insertData(model)
-           amountInput?.text = null
-           descriptionInput?.text = null
-           val modelList = db.retrieveData()
-           transactionRecyclerView.layoutManager = LinearLayoutManager(context)
-           transactionRecyclerView.adapter = QuestionRecyclerAdapter(modelList,context!!)
+            if(amountInput!!.text != null && amountInput.text.toString() != "" && descriptionInput!!.text != null && descriptionInput.text.toString() != "") {
+               val model = CepHesabiModel()
+               model.amount = amountInput.text.toString().toInt()
+               model.description = descriptionInput.text.toString()
+               val rowId = db.insertData(model)
+               amountInput.text = null
+               descriptionInput.text = null
+               val modelList = db.retrieveData()
+               transactionRecyclerView.layoutManager = LinearLayoutManager(context)
+               transactionRecyclerView.adapter = QuestionRecyclerAdapter(modelList,context!!)
 
-           sumTextView!!.text = db.sumOfAmounts().toString()
+               sumTextView!!.text = db.sumOfAmounts().toString()
+
+           }else{
+               Toast.makeText(context!!,"Lütfen zorunlu alanları doldurunuz!",Toast.LENGTH_SHORT).show()
+           }
         }
 
         subButton?.setOnClickListener {
-           val model = CepHesabiModel()
-           model.amount = amountInput?.text.toString().toInt().unaryMinus()
-           model.description = descriptionInput?.text.toString()
-           val rowId = db.insertData(model)
-           amountInput?.text = null
-           descriptionInput?.text = null
-           val modelList = db.retrieveData()
-           transactionRecyclerView.layoutManager = LinearLayoutManager(context)
-           transactionRecyclerView.adapter = QuestionRecyclerAdapter(modelList,context!!)
+            if(amountInput!!.text != null && amountInput.text.toString() != "" && descriptionInput!!.text != null && descriptionInput.text.toString() != "") {
+                val model = CepHesabiModel()
+                model.amount = amountInput.text.toString().toInt().unaryMinus()
+                model.description = descriptionInput.text.toString()
+                val rowId = db.insertData(model)
+                amountInput.text = null
+                descriptionInput.text = null
+                val modelList = db.retrieveData()
+                transactionRecyclerView.layoutManager = LinearLayoutManager(context)
+                transactionRecyclerView.adapter = QuestionRecyclerAdapter(modelList, context!!)
 
-           sumTextView!!.text = db.sumOfAmounts().toString()
+                sumTextView!!.text = db.sumOfAmounts().toString()
+            }else{
+                Toast.makeText(context!!,"Lütfen zorunlu alanları doldurunuz!",Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        deleteAllButton?.setOnClickListener {
+            db.deleteAllData()
+            sumTextView!!.text = null
+            val modelList = db.retrieveData()
+            transactionRecyclerView.layoutManager = LinearLayoutManager(context)
+            transactionRecyclerView.adapter = QuestionRecyclerAdapter(modelList, context!!)
         }
 
     }

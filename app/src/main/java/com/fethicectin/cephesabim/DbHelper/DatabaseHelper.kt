@@ -79,7 +79,7 @@ class DatabaseHelper(val context: Context) : SQLiteOpenHelper(context,DatabaseHe
         return total
     }
 
-    fun deleteAllData(id: Int?) {
+    fun deleteAllData() {
         val sqliteDB = this.writableDatabase
         sqliteDB.delete(TABLE_NAME,null,null)
         sqliteDB.close()
