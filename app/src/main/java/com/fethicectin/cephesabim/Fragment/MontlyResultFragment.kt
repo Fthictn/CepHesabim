@@ -35,57 +35,30 @@ class MontlyResultFragment : Fragment() {
         val containerFabButton = view?.findViewById<FloatingActionButton>(R.id.containerFabButton)
         val aaChartView = view?.findViewById<AAChartView>(R.id.aa_chart_view)
         var flag = true
-        var x = db.getMounthlyAverages()
+        val mounthNames = arrayOf("Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık")
+        var totalMounthlyAverage = arrayListOf<Int>()
 
-        val chartIncomeModel : AAChartModel = AAChartModel()
+        for(i in 0 until 11){
+            totalMounthlyAverage.add(db.getMounthlyAverages(mounthNames[i]))
+        }
+
+        val chartRemainingModel : AAChartModel = AAChartModel()
             .chartType(AAChartType.Waterfall)
             .title("Aylara Göre Ortalama Geliriniz")
             .subtitle("")
             .backgroundColor("#FFFFFF")
             .dataLabelsEnabled(true)
-            .categories(arrayOf("Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"))
+            .categories(mounthNames)
             .xAxisTickInterval(1)
             .yAxisVisible(false)
             .series(arrayOf(
                 AASeriesElement()
                     .name("Gelir")
-                    .data(arrayOf(7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6))
-            )
-            )
-//arrayOf(7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6)
-        aaChartView?.aa_drawChartWithChartModel(chartIncomeModel)
-
-        val chartOutComeModel : AAChartModel = AAChartModel()
-            .chartType(AAChartType.Waterfall)
-            .title("Aylara Göre Ortalama Gideriniz")
-            .subtitle("")
-            .backgroundColor("#FFFFFF")
-            .dataLabelsEnabled(true)
-            .categories(arrayOf("Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"))
-            .xAxisTickInterval(1)
-            .yAxisVisible(false)
-            .series(arrayOf(
-                AASeriesElement()
-                    .name("Gider")
-                    .data(arrayOf(10.0, 11, 13, 35, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6))
+                    .data(totalMounthlyAverage.toArray())
             )
             )
 
-        val chartRemainingModel : AAChartModel = AAChartModel()
-            .chartType(AAChartType.Waterfall)
-            .title("Aylara Göre Ortalama Kalan")
-            .subtitle("")
-            .backgroundColor("#FFFFFF")
-            .dataLabelsEnabled(true)
-            .categories(arrayOf("Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"))
-            .xAxisTickInterval(1)
-            .yAxisVisible(false)
-            .series(arrayOf(
-                AASeriesElement()
-                    .name("Kalan")
-                    .data(arrayOf(35.0, 11, 13, 35, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6))
-            )
-            )
+        aaChartView?.aa_drawChartWithChartModel(chartRemainingModel)
 
         containerFabButton?.setOnClickListener {
             if(flag){
@@ -107,6 +80,7 @@ class MontlyResultFragment : Fragment() {
             averageInComeButton.visibility = View.GONE
             averageOutCome!!.visibility = View.GONE
             flag = true
+            aaChartView?.aa_refreshChartWithChartModel(chartRemainingModel)
             aaChartView?.aa_drawChartWithChartModel(chartRemainingModel)
         }
 
@@ -115,7 +89,7 @@ class MontlyResultFragment : Fragment() {
             averageInComeButton.visibility = View.GONE
             averageOutCome.visibility = View.GONE
             flag = true
-            aaChartView?.aa_drawChartWithChartModel(chartOutComeModel)
+            //aaChartView?.aa_drawChartWithChartModel(chartOutComeModel)
         }
 
         averageInCome?.setOnClickListener {
@@ -123,7 +97,7 @@ class MontlyResultFragment : Fragment() {
             averageInComeButton.visibility = View.GONE
             averageOutCome!!.visibility = View.GONE
             flag = true
-            aaChartView?.aa_drawChartWithChartModel(chartIncomeModel)
+           // aaChartView?.aa_drawChartWithChartModel(chartIncomeModel)
         }
 
     }

@@ -55,7 +55,7 @@ class IncomeOutcomeFragment : Fragment() {
                transactionRecyclerView.layoutManager = LinearLayoutManager(context)
                transactionRecyclerView.adapter = QuestionRecyclerAdapter(modelList,context!!)
 
-               sumTextView!!.text = db.sumOfAmounts().toString()
+               sumTextView.text = db.sumOfAmounts().toString()
 
            }else{
                Toast.makeText(context!!,"Lütfen zorunlu alanları doldurunuz!",Toast.LENGTH_SHORT).show()
