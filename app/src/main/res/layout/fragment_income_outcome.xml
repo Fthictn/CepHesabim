@@ -6,6 +6,7 @@
     android:gravity="start"
     android:orientation="vertical"
     android:paddingTop="19dp"
+    android:background="@drawable/graph_line_bg"
     tools:context=".Fragment.IncomeOutcomeFragment">
 
     <LinearLayout
@@ -86,8 +87,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/colorPrimary"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:orientation="horizontal">
         <TextView
             android:id="@+id/sum"
             android:layout_width="wrap_content"
@@ -95,18 +95,20 @@
             android:textColor="@color/white"
             android:textSize="19sp"
             android:gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
             android:textAlignment="center"
             android:layout_centerInParent="true"
             />
         <Button
             android:id="@+id/deleteAllButton"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:textAlignment="center"
             android:gravity="center"
-            android:text="Tümünü Sil"
+            android:background="@drawable/ic_baseline_delete_forever_24"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
+
             android:layout_centerVertical="true"/>
     </RelativeLayout>
 

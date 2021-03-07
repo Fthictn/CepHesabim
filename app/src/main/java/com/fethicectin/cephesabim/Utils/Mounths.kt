@@ -14,3 +14,11 @@ enum class Mounths(val mounth:String) {
     NOVEMBER("Kasım"),
     DECEMBER("Aralık")
 }
+
+    fun returnMounthList():MutableList<String>{
+        var mounthList = mutableListOf<String>()
+        Mounths.values().forEach {
+            mounthList.add(it.mounth)
+        }
+        return mounthList
+    }

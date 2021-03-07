@@ -33,12 +33,13 @@
 
         <Button
             android:id="@+id/deleteButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="sil"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ic_baseline_delete_24"
             android:textAlignment="center"
             android:gravity="center"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             />
 
 

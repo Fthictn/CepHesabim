@@ -31,7 +31,7 @@ class QuestionRecyclerAdapter(private var models:MutableList<CepHesabiModel>?, p
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val db = DatabaseHelper(context!!)
-        val itemString = models!!.get(position).amount.toString() + " TL" + " (" + models!!.get(position).description + ")"
+        val itemString = models!!.get(position).amount.toString() + " TL " +  models!!.get(position).description
         holder.listItem.text = itemString
         if(models!!.get(position).amount!! > 0.0){
             holder.listItemContainer.setBackgroundColor(Color.parseColor("#03DAC5"))
@@ -43,11 +43,9 @@ class QuestionRecyclerAdapter(private var models:MutableList<CepHesabiModel>?, p
             db.deleteData(models!!.get(position).id!!)
             models!!.removeAt(position)
             notifyDataSetChanged()
-
         }
 
     }
-
 
 }
 

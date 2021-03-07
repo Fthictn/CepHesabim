@@ -1,5 +1,6 @@
 package com.fethicectin.cephesabim.Fragment
 
+import android.graphics.Color.red
 import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
@@ -9,10 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.fethicectin.cephesabim.DbHelper.DatabaseHelper
 import com.fethicectin.cephesabim.R
-import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
-import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType
-import com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
-import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement
+import com.github.mikephil.charting.data.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.fragment_montly_result.*
 
@@ -33,32 +31,27 @@ class MontlyResultFragment : Fragment() {
         val averageOutCome = view?.findViewById<FloatingActionButton>(R.id.averageOutComeButton)
         val averageInCome = view?.findViewById<FloatingActionButton>(R.id.averageInComeButton)
         val containerFabButton = view?.findViewById<FloatingActionButton>(R.id.containerFabButton)
-        val aaChartView = view?.findViewById<AAChartView>(R.id.aa_chart_view)
         var flag = true
-        val mounthNames = arrayOf("Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık")
-        var totalMounthlyAverage = arrayListOf<Int>()
+        var amount = 0
+        val entries = ArrayList<BarEntry>()
+        val labels = ArrayList<String>()
 
-        for(i in 0 until 11){
-            totalMounthlyAverage.add(db.getMounthlyAverages(mounthNames[i]))
-        }
+        labels.add("Ocak")
+        labels.add("Şubat")
+        labels.add("Mart")
+        labels.add("Nisan")
+        labels.add("Mayıs")
+        labels.add("Haziran")
+        labels.add("Temmuz")
+        labels.add("Ağustos")
+        labels.add("Eylül")
+        labels.add("Ekim")
+        labels.add("Kasım")
+        labels.add("Aralık")
 
-        val chartRemainingModel : AAChartModel = AAChartModel()
-            .chartType(AAChartType.Waterfall)
-            .title("Aylara Göre Ortalama Geliriniz")
-            .subtitle("")
-            .backgroundColor("#FFFFFF")
-            .dataLabelsEnabled(true)
-            .categories(mounthNames)
-            .xAxisTickInterval(1)
-            .yAxisVisible(false)
-            .series(arrayOf(
-                AASeriesElement()
-                    .name("Gelir")
-                    .data(totalMounthlyAverage.toArray())
-            )
-            )
+        var barDataSet:BarDataSet?
 
-        aaChartView?.aa_drawChartWithChartModel(chartRemainingModel)
+        var data:BarData?
 
         containerFabButton?.setOnClickListener {
             if(flag){
@@ -76,30 +69,106 @@ class MontlyResultFragment : Fragment() {
         }
 
         averageRemainingButton?.setOnClickListener {
+            entries.clear()
             averageRemainingButton.visibility = View.GONE
             averageInComeButton.visibility = View.GONE
             averageOutCome!!.visibility = View.GONE
             flag = true
-            aaChartView?.aa_refreshChartWithChartModel(chartRemainingModel)
-            aaChartView?.aa_drawChartWithChartModel(chartRemainingModel)
+            for (index in 0..11) {
+                amount = db.getMounthlyAverages(labels[index])
+                entries.add(BarEntry(amount.toFloat(), index))
+            }
+
+            barDataSet = BarDataSet(entries, "Tutar")
+
+            data = BarData(getgraphLabels(), barDataSet)
+            barchart.data = data
+            barchart.setDescriptionColor(R.color.white)
+            barchart.setDescription("Aylık net tutar")
+            barchart.fitScreen()
+            barDataSet!!.color = resources.getColor(R.color.colorAccent)
+            barchart.notifyDataSetChanged()
+            barchart.invalidate()
+            barchart.animateY(3000)
         }
 
         averageOutCome?.setOnClickListener {
+            entries.clear()
+            var amountType = mutableListOf<Int>()
             averageRemainingButton!!.visibility = View.GONE
             averageInComeButton.visibility = View.GONE
             averageOutCome.visibility = View.GONE
             flag = true
-            //aaChartView?.aa_drawChartWithChartModel(chartOutComeModel)
+            for (index in 0..11){
+                amountType = db.getMountlyPlusNegate(labels[index])
+                if(!amountType.isEmpty()){
+                    amount = amountType[1]
+                }else{
+                    amount = 0
+                }
+                entries.add(BarEntry(amount.toFloat(),index))
+            }
+
+            barDataSet = BarDataSet(entries, "Tutar")
+
+            data = BarData(getgraphLabels(), barDataSet)
+            barchart.data = data
+            barchart.setDescription("Aylık net gider")
+            barchart.fitScreen()
+            barDataSet!!.color = resources.getColor(R.color.colorAccent)
+            barchart.notifyDataSetChanged()
+            barchart.invalidate()
+            barchart.animateY(3000)
         }
 
         averageInCome?.setOnClickListener {
+            entries.clear()
+            var amountType = mutableListOf<Int>()
             averageRemainingButton!!.visibility = View.GONE
             averageInComeButton.visibility = View.GONE
             averageOutCome!!.visibility = View.GONE
             flag = true
-           // aaChartView?.aa_drawChartWithChartModel(chartIncomeModel)
+
+            for (index in 0..11){
+                amountType = db.getMountlyPlusNegate(labels[index])
+                if(!amountType.isEmpty()){
+                    amount = amountType[0]
+                }else{
+                    amount = 0
+                }
+                entries.add(BarEntry(amount.toFloat(),index))
+            }
+
+            barDataSet = BarDataSet(entries, "Tutar")
+
+            data = BarData(getgraphLabels(), barDataSet)
+            barchart.data = data
+            barchart.setDescription("Aylık net gelir")
+            barchart.fitScreen()
+            barDataSet!!.color = resources.getColor(R.color.colorAccent)
+            barchart.notifyDataSetChanged()
+            barchart.invalidate()
+            barchart.animateY(3000)
         }
 
+    }
+
+    fun getgraphLabels():ArrayList<String>{
+        val labels = ArrayList<String>()
+        labels.add("Ocak")
+        labels.add("Şubat")
+        labels.add("Mart")
+        labels.add("Nisan")
+        labels.add("Mayıs")
+        labels.add("Haziran")
+        labels.add("Temmuz")
+        labels.add("Ağustos")
+        labels.add("Eylül")
+        labels.add("Ekim")
+        labels.add("Kasım")
+        labels.add("Aralık")
+
+        return labels
     }
 
 }

@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fethicectin.cephesabi.CepHesabiModel
+import com.fethicectin.cephesabim.Activity.MainActivity
 import com.fethicectin.cephesabim.DbHelper.DatabaseHelper
 import com.fethicectin.cephesabim.R
 import com.fethicectin.orderly.Utils.QuestionRecyclerAdapter
@@ -28,7 +29,6 @@ class IncomeOutcomeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         val db = DatabaseHelper(context!!)
         val addButton = view?.findViewById<Button>(R.id.addToPocket)
         val subButton = view?.findViewById<Button>(R.id.subFromPocket)
@@ -36,7 +36,6 @@ class IncomeOutcomeFragment : Fragment() {
         val descriptionInput = view?.findViewById<EditText>(R.id.descriptionInput)
         val sumTextView = view?.findViewById<TextView>(R.id.sum)
         val deleteAllButton = view?.findViewById<Button>(R.id.deleteAllButton)
-
         var modelList = db.retrieveData()
         transactionRecyclerView.layoutManager = LinearLayoutManager(context)
         transactionRecyclerView.adapter = QuestionRecyclerAdapter(modelList,context!!)
@@ -62,6 +61,8 @@ class IncomeOutcomeFragment : Fragment() {
            }
         }
 
+
+
         subButton?.setOnClickListener {
             if(amountInput!!.text != null && amountInput.text.toString() != "" && descriptionInput!!.text != null && descriptionInput.text.toString() != "") {
                 val model = CepHesabiModel()
@@ -75,15 +76,17 @@ class IncomeOutcomeFragment : Fragment() {
                 transactionRecyclerView.layoutManager = LinearLayoutManager(context)
                 transactionRecyclerView.adapter = QuestionRecyclerAdapter(modelList, context!!)
 
-                sumTextView!!.text = db.sumOfAmounts().toString()
+                sumTextView.text = db.sumOfAmounts().toString()
             }else{
                 Toast.makeText(context!!,"Lütfen zorunlu alanları doldurunuz!",Toast.LENGTH_SHORT).show()
             }
         }
 
+
+
         deleteAllButton?.setOnClickListener {
             db.deleteAllData()
-            sumTextView!!.text = null
+            sumTextView.text = null
             modelList = db.retrieveData()
             transactionRecyclerView.layoutManager = LinearLayoutManager(context)
             transactionRecyclerView.adapter = QuestionRecyclerAdapter(modelList, context!!)
@@ -95,4 +98,5 @@ class IncomeOutcomeFragment : Fragment() {
         val mounthArray = arrayListOf("Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık")
         return mounthArray[mounthNo!!]
     }
+
 }

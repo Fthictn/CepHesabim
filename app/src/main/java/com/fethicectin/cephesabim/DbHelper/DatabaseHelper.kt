@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import com.fethicectin.cephesabi.CepHesabiModel
+import java.util.*
 
 class DatabaseHelper(val context: Context) : SQLiteOpenHelper(context,DatabaseHelper.DATABASE_NAME,null,DatabaseHelper.DATABASE_VERSION) {
     private val TABLE_NAME="Incomeoutcome"
@@ -94,6 +95,32 @@ class DatabaseHelper(val context: Context) : SQLiteOpenHelper(context,DatabaseHe
         cursor.close()
         db.close()
         return total
+    }
+
+    fun getMountlyPlusNegate(mounthName:String):MutableList<Int>{
+        val db = this.readableDatabase
+        val mounthArray = arrayOf(mounthName)
+        val query =  "SELECT $COL_AMOUNT AS Total FROM $TABLE_NAME WHERE $COL_MOUNTH = ?"
+        val cursor = db.rawQuery(query,mounthArray)
+        var totalPlus = 0
+        var totalNegate = 0
+        if (cursor.moveToFirst()) {
+            do{
+                if(cursor.getInt(cursor.getColumnIndex(COL_TOTAL)) > 0){
+                    totalPlus += cursor.getInt(cursor.getColumnIndex(COL_TOTAL))
+                }else{
+                    totalNegate += cursor.getInt(cursor.getColumnIndex(COL_TOTAL))
+                }
+            }while(cursor.moveToNext())
+        }
+
+        val totals = mutableListOf<Int>()
+        totals.add(totalPlus)
+        totals.add(totalNegate)
+        cursor.close()
+        db.close()
+
+        return totals
     }
 
     fun deleteAllData() {

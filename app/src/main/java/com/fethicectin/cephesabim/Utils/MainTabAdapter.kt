@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.fethicectin.cephesabim.Activity.MainActivity
 import com.fethicectin.cephesabim.Fragment.IncomeOutcomeFragment
 import com.fethicectin.cephesabim.Fragment.MontlyResultFragment
 

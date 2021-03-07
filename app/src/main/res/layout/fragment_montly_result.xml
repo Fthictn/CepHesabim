@@ -5,15 +5,25 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".Fragment.MontlyResultFragment">
+    tools:context=".Fragment.MontlyResultFragment"
+    android:background="@drawable/graph_line_bg">
 
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/barchart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/graph_line_bg"
+        android:layout_marginBottom="80dp"/>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/averageRemaingButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_margin="12dp"
-        app:backgroundTint="@color/colorPrimaryDark"
+        android:src="@drawable/ic_baseline_format_align_justify_24"
         android:layout_above="@+id/averageOutComeButton"
         android:visibility="gone"
         app:fabCustomSize="60dp"
@@ -28,7 +38,7 @@
         android:layout_margin="12dp"
         android:visibility="gone"
         android:layout_above="@+id/averageInComeButton"
-        app:backgroundTint="@android:color/holo_red_dark"
+        android:src="@drawable/ic_baseline_indeterminate_check_box_24"
         app:fabCustomSize="60dp"
         app:fabSize="auto"
         android:layout_alignParentEnd="true" />
@@ -41,7 +51,7 @@
         android:layout_alignParentEnd="true"
         android:visibility="gone"
         android:layout_margin="12dp"
-        app:backgroundTint="@android:color/holo_green_light"
+        android:src="@drawable/ic_baseline_add_circle_24"
         app:fabCustomSize="60dp"
         app:fabSize="auto"
         android:layout_alignParentRight="true" />
@@ -51,17 +61,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
-        app:backgroundTint="@color/colorAccent"
         android:layout_alignParentBottom="true"
+        android:src="@drawable/ic_baseline_arrow_upward_24"
         android:layout_alignParentEnd="true"
         app:fabCustomSize="60dp"
         app:fabSize="auto"
         android:layout_alignParentRight="true" />
 
-    <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
-        android:id="@+id/aa_chart_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 </RelativeLayout>
 
 
