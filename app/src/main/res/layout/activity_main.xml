@@ -14,7 +14,9 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         app:tabTextColor="@android:color/background_light"
-        app:tabIndicator="@color/colorPrimary"/>
+        app:tabSelectedTextColor="@color/colorAccent"
+        app:tabIndicator="@color/white"
+        app:tabIndicatorColor="@color/white"/>
         <!--app:tabSelectedTextColor="@color/cardview_dark_background"/>-->
 
     <androidx.viewpager.widget.ViewPager

@@ -36,7 +36,7 @@ class QuestionRecyclerAdapter(private var models:MutableList<CepHesabiModel>?, p
         if(models!!.get(position).amount!! > 0.0){
             holder.listItemContainer.setBackgroundColor(Color.parseColor("#03DAC5"))
         }else{
-            holder.listItemContainer.setBackgroundColor(Color.parseColor("#E41456"))
+            holder.listItemContainer.setBackgroundColor(Color.parseColor("#6200EE"))
         }
 
         holder.deleteButton.setOnClickListener {
