@@ -129,9 +129,10 @@ class DatabaseHelper(val context: Context) : SQLiteOpenHelper(context,DatabaseHe
         sqliteDB.close()
     }
 
-    fun deleteData(id : Int) : Int {
+    fun deleteData(id : Int){
         val db = this.writableDatabase
-        return db.delete(TABLE_NAME,"id = ?", arrayOf(id.toString()))
+        db.delete(TABLE_NAME,"id = ?", arrayOf(id.toString()))
+        db.close()
     }
 
 }

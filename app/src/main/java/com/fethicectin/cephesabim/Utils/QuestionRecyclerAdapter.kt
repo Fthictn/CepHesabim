@@ -34,9 +34,9 @@ class QuestionRecyclerAdapter(private var models:MutableList<CepHesabiModel>?, p
         val itemString = models!!.get(position).amount.toString() + " TL " +  models!!.get(position).description
         holder.listItem.text = itemString
         if(models!!.get(position).amount!! > 0.0){
-            holder.listItemContainer.setBackgroundColor(Color.parseColor("#03DAC5"))
+            holder.listItemContainer.setBackgroundColor(Color.parseColor("#23EBC4"))
         }else{
-            holder.listItemContainer.setBackgroundColor(Color.parseColor("#6200EE"))
+            holder.listItemContainer.setBackgroundColor(Color.parseColor("#23A5EB"))
         }
 
         holder.deleteButton.setOnClickListener {
