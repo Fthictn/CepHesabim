@@ -31,17 +31,20 @@ class DatabaseHelper(val context: Context) : SQLiteOpenHelper(context,DatabaseHe
         onCreate(db)
     }
 
-    fun insertData(model:CepHesabiModel):Long{
-        var sqliteDb = this.writableDatabase
-        var contentvalues = ContentValues()
+    fun insertData(model:CepHesabiModel){
+        val dbHelper = DatabaseHelper(context)
+        val sqliteDb = dbHelper.writableDatabase
 
-        contentvalues.put(COL_AMOUNT,model.amount)
-        contentvalues.put(COL_MOUNTH,model.mounth)
-        contentvalues.put(COL_DESCRIPTION,model.description)
+        val values = ContentValues().apply {
+            put(COL_AMOUNT, model.amount)
+            put(COL_MOUNTH, model.mounth)
+            put(COL_DESCRIPTION,model.description)
+        }
 
-        val result = sqliteDb.insert(TABLE_NAME,null,contentvalues)
-
-        return result
+        sqliteDb.insert(TABLE_NAME,null,values)
+        sqliteDb.close()
+        val y = this.retrieveData()
+        System.out.println(y)
     }
 
     fun retrieveData():MutableList<CepHesabiModel> {
@@ -133,6 +136,7 @@ class DatabaseHelper(val context: Context) : SQLiteOpenHelper(context,DatabaseHe
         val db = this.writableDatabase
         db.delete(TABLE_NAME,"id = ?", arrayOf(id.toString()))
         db.close()
+        var x = this.retrieveData()
     }
 
 }

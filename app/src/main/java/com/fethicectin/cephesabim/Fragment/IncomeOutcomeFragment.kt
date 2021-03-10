@@ -47,7 +47,7 @@ class IncomeOutcomeFragment : Fragment() {
                model.amount = amountInput.text.toString().toInt()
                model.description = descriptionInput.text.toString()
                model.mounth = getStringMounth(Calendar.getInstance().get(Calendar.MONTH))
-               val rowId = db.insertData(model)
+               db.insertData(model)
                amountInput.text = null
                descriptionInput.text = null
                modelList = db.retrieveData()
@@ -69,7 +69,7 @@ class IncomeOutcomeFragment : Fragment() {
                 model.amount = amountInput.text.toString().toInt().unaryMinus()
                 model.description = descriptionInput.text.toString()
                 model.mounth = getStringMounth(Calendar.getInstance().get(Calendar.MONTH))
-                val rowId = db.insertData(model)
+                db.insertData(model)
                 amountInput.text = null
                 descriptionInput.text = null
                 modelList = db.retrieveData()

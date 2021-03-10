@@ -40,7 +40,8 @@ class QuestionRecyclerAdapter(private var models:MutableList<CepHesabiModel>?, p
         }
 
         holder.deleteButton.setOnClickListener {
-            db.deleteData(models!!.get(position).id!!)
+            //db.deleteData(models!!.get(position).id!!)
+            db.deleteData(position)
             models!!.removeAt(position)
             notifyDataSetChanged()
         }
