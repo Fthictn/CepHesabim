@@ -1,4 +1,4 @@
-package com.fethicectin.orderly.Utils
+package com.fethicectin.cephesabim.Utils
 
 import android.content.Context
 import androidx.fragment.app.Fragment

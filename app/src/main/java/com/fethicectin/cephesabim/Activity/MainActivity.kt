@@ -5,12 +5,8 @@ import android.os.Bundle
 import androidx.viewpager.widget.ViewPager
 import com.fethicectin.cephesabim.DbHelper.DatabaseHelper
 import com.fethicectin.cephesabim.R
-import com.fethicectin.orderly.Utils.MainTabAdapter
-import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType
-import com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
+import com.fethicectin.cephesabim.Utils.MainTabAdapter
 import com.google.android.material.tabs.TabLayout
-import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
-import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement
 
 open class MainActivity : AppCompatActivity() {
 

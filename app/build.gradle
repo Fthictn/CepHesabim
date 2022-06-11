@@ -10,12 +10,15 @@ android {
         applicationId "com.fethicectin.cephesabim"
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
+    packagingOptions {
+        exclude 'META-INF/androidx.legacy_legacy-support-core-utils.version'
+        // or exclude 'META-INF/*'
+    }
     buildTypes {
         release {
             minifyEnabled false
